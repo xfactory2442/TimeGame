@@ -1,0 +1,178 @@
+.button {
+	display: inline-block;
+	position: relative;
+
+}
+
+.text {
+	display: inline-block;
+	position: relative;
+}
+
+.currency {
+	display: inline-block;
+	position: relative;
+}
+
+.currency_amount {
+	display: inline-block;
+	position: relative;
+}
+
+.currency_img {
+	display:inline-block;
+	position: relative;
+	width: 30px;
+	height: 30px;
+}
+
+.shop {
+	display:inline-block;
+	position:relative;
+	top: 2%; 
+	left: 2%; 
+	width: 50%;
+	background-color:lightslategrey
+}
+
+.shop_item {
+	position: relative;
+	display: inline-block;
+	left: 2%;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	width: 96%;
+	height: 50px;
+	background-color: white;
+}
+
+.inventory_text {
+	color: black;
+}
+
+.log {
+	position: absolute;
+	color: white;
+	background-color: grey;
+	right: 10px;
+	width: 20%;
+	height: 90%;
+	top: 5%;
+	font-size: 20px;
+}
+
+.resources {
+	position: absolute;
+	color: white;
+	background-color: lightgray;
+	right: 21%;
+	width: 20%;
+	height: 90%;
+	top: 5%;
+	font-size: 20px;
+}
+
+.shop_box {
+	position: relative;
+	display: inline-block;
+	background-color: #f0f0f0;
+	border-left: 2px;
+	border-right: 2px;
+	border-top: 2px;
+	border-bottom: 2px;
+}
+
+.shop_button {
+	position: relative;
+	display: inline-block;
+	border-left: 2px;
+	border-right: 2px;
+	border-top: 2px;
+	border-bottom: 2px;
+	width: 5%;
+}
+
+.shop_box_name {
+	width: 20%;
+}
+
+.shop_box_cost {
+	width: 10%;
+}
+
+.shop_box_description {
+	width: 63%;
+}
+
+
+.slide_container {
+	width: 100%; /* Width of the outside container */
+}
+
+.action_slider {
+	position:relative;
+	width: 20%;
+	display:inline-block;
+}
+
+/* The slider itself */
+.slider {
+	-webkit-appearance: none; /* Override default CSS styles */
+	appearance: none;
+	width: 100%; /* Full-width */
+	height: 25px; /* Specified height */
+	background: #d3d3d3; /* Grey background */
+	outline: none; /* Remove outline */
+	opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+	-webkit-transition: .2s; /* 0.2 seconds transition on hover */
+	transition: opacity .2s;
+}
+
+.tooltip {
+	position: relative;
+	display: inline-block;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptextbackground {
+	visibility: hidden;
+	background-color: black;
+	padding: 5px 0;
+	width: 120px;
+	border-radius: 6px;
+	position: absolute;
+	z-index: 1;
+	color: #fff;
+	text-align: center;
+}
+
+.tooltiptextbackground .tooltiptext {
+	position:relative;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptextbackground {
+	visibility: visible;
+}
+
+/* Mouse-over effects */
+.slider:hover {
+	opacity: 1; /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+	-webkit-appearance: none; /* Override default look */
+	appearance: none;
+	width: 25px; /* Set a specific slider handle width */
+	height: 25px; /* Slider handle height */
+	background: #04AA6D; /* Green background */
+	cursor: pointer; /* Cursor on hover */
+}
+
+.slider::-moz-range-thumb {
+	width: 25px; /* Set a specific slider handle width */
+	height: 25px; /* Slider handle height */
+	background: #04AA6D; /* Green background */
+	cursor: pointer; /* Cursor on hover */
+}
