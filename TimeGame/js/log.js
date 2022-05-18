@@ -8,8 +8,8 @@ function AddToLog(text) {
 	log.push(element);
 	log_background.prepend(element);
 
-	while (log.length > 8) {
+	while (log.length > 12) {
 		log.shift();
-		log_background.removeChild(log_background.childNodes[6]);
+		log_background.removeChild(log_background.childNodes[12]);
 	}
 }

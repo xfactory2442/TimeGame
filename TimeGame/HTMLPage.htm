@@ -116,11 +116,11 @@
 
 	<div id="shop" class="shop">
 	</div>
-
-	<div id="resources" class="resources">
-		<p class="text, inventory_text" style="text-decoration: underline; font-size: 25px">Inventory</p>
-		<p id="money_inventory_text" class="text, inventory_text"></p>
+	<div class="tab">
+		<button class="tablinks" onclick="ChangeTab(event, 'log')" id="default_open">Log</button>
+		<button class="tablinks" onclick="ChangeTab(event, 'resources')">Inv</button>
 	</div>
+	<div id="resources" class="log"></div>
 	<div id="log" class="log"></div>
 </BODY>
 </HTML>
