@@ -50,7 +50,7 @@
 	<p id="debug_text2"></p>
 	<div id="UI">
 		<button class="button" onclick="StartDay()">Next Day</button>
-		<p id="can_not_start_day" class="text"></p>
+		<p id="failed_action_info_text" class="text"></p>
 		<div id="currencies" style="display:inline-block; position:relative">
 			<div id="leaf" class="currency">
 				<p id="leaf_amount" class="currency_amount"></p>
@@ -81,6 +81,7 @@
 				<img src="img/leaf.png" alt="leaf" class="currency_img">
 			</div>
 		</div>
+		<button id="go_to_bank_button" onclick="GoToBank()">Go To Bank</button>
 	</div>
 	<h3 id="date"></h3>
 	<div id="actions">

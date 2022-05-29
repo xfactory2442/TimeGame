@@ -17,7 +17,6 @@ function BuyItem(button) {
 		var name = shop_items[i].name + "_item";
 		if (item.id == name) {
 			if (SpendMoney(shop_items[i].cost)) {
-				console.log("removing");
 				shop_items[i].RemoveShopItem();
 			}
 			return;
@@ -48,7 +47,6 @@ class ShopItems {
 	}
 
 	RemoveShopItem() {
-		console.log("deleting");
 		this.shop.parentNode.removeChild(this.shop);
 	}
 }

@@ -1,13 +1,14 @@
 var currencies = [];
+var gone_to_bank = 0;
 
 function OnLoadCurrencies() {
-	currencies[0] = new Currency("leaf", 0, 0.0);
-	currencies[1] = new Currency("stone", 0, 10);
-	currencies[2] = new Currency("iron", 0, 30);
-	currencies[3] = new Currency("gold", 0, 70);
-	currencies[4] = new Currency("diamond", 0, 200);
-	currencies[5] = new Currency("platinum", 0, 500);
-	currencies[6] = new Currency("orentium", 0, 1000);
+	currencies[0] = new Currency("leaf", 0, 10.0);
+	currencies[1] = new Currency("stone", 0, 30);
+	currencies[2] = new Currency("iron", 0, 70);
+	currencies[3] = new Currency("gold", 0, 200);
+	currencies[4] = new Currency("diamond", 0, 500);
+	currencies[5] = new Currency("platinum", 0, 1000);
+	currencies[6] = new Currency("orentium", 0, 0);
 }
 
 function GetCurrencyText(currency) {
@@ -22,6 +23,23 @@ function GetCurrencyText(currency) {
 	currency_text += currency[currency.length - 1][1].toString()
 		+ " " + currencies[currency[currency.length - 1][0]].name;
 	return currency_text;
+}
+
+function GoToBank() {
+	if (SubtractFreeHours(1)) {
+		gone_to_bank += 1;
+		for (var i = 0; i < currencies.length - 1; i++) {
+			var added = Math.floor(currencies[i].amount / currencies[i].exchange_rate);
+			currencies[i + 1].AddCurrency(added);
+			currencies[i].SubtractCurrency(added * currencies[i].exchange_rate);
+		}
+		AddToLog("Took an hour to go to the bank to try and exchange all money for higher denominations of coins/bills.");
+	}
+	else if (!failed_action) {
+		document.getElementById('failed_action_info_text').innerHTML = "No time left for bank...";
+		setTimeout(FailedAction, 2000);
+		failed_action = true;
+	}
 }
 
 function SpendMoneyHourly(cost, hours) {

@@ -1,4 +1,5 @@
 var day = 0;
+var failed_action = false;
 
 function OnLoad() {
 	SetFreeHours(free_hours);
@@ -18,8 +19,11 @@ let action_number = 99;
 var day_interval;
 function StartDay() {
 	if (action_number < actions.length + 1) {
-		document.getElementById('can_not_start_day').innerHTML = "Day currently running...";
-		setTimeout(CanNotStartDay, 2000);
+		if (!failed_action) {
+			document.getElementById('failed_action_info_text').innerHTML = "Day currently running...";
+			setTimeout(FailedAction, 2000);
+			failed_action = true;
+		}
 		return;
 	}
 	AddToLog("- - - - - - ");
@@ -73,6 +77,8 @@ function RunDay() {
 		AddToLog("You spent " + free_hours.toString() + " doing nothing of importance at home.");
 		clearInterval(day_interval);
 		action_number++;
+		SubtractFreeHours(-gone_to_bank);
+		gone_to_bank = 0;
 		CheckUnlocks();
 	}
 }
@@ -81,8 +87,9 @@ function PayBills() {
 
 }
 
-function CanNotStartDay() {
-	document.getElementById('can_not_start_day').innerHTML = '';
+function FailedAction() {
+	document.getElementById('failed_action_info_text').innerHTML = '';
+	failed_action = false;
 }
 
 var free_hours = 7.0;
@@ -91,9 +98,13 @@ function SetFreeHours(value) {
 	document.getElementById("time_text").innerHTML = 'Free Hours: ' + free_hours.toString();
 }
 
-function AddFreeHours(value) {
-	free_hours += value;
-	document.getElementById("time_text").innerHTML = 'Free Hours: ' + free_hours.toString();
+function SubtractFreeHours(value) {
+	if (free_hours - value > -1) {
+		free_hours -= value;
+		document.getElementById("time_text").innerHTML = 'Free Hours: ' + free_hours.toString();
+		return true;
+	}
+	return false;
 }
 
 

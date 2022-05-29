@@ -27,7 +27,7 @@ function UpdateSliders(name, value) {
 	var slider = GetActionByName(name.replace("_slider", ""));
 	value -= slider.hours_worked;
 	value = free_hours < value ? free_hours : value;
-	AddFreeHours(-value);
+	SubtractFreeHours(value);
 	slider.AddValue(value);
 }
 
