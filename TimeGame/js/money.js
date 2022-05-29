@@ -1,13 +1,13 @@
 var currencies = [];
 
 function OnLoadCurrencies() {
-	currencies[0] = new Currency("leaf", 0.0, 0.0);
-	currencies[1] = new Currency("stone", 0.0, 10.0);
-	currencies[2] = new Currency("iron", 0.0, 30.0);
-	currencies[3] = new Currency("gold", 0.0, 70.0);
-	currencies[4] = new Currency("diamond", 0.0, 200.0);
-	currencies[5] = new Currency("platinum", 0.0, 500.0);
-	currencies[6] = new Currency("orentium", 0.0, 1000.0);
+	currencies[0] = new Currency("leaf", 0, 0.0);
+	currencies[1] = new Currency("stone", 0, 10);
+	currencies[2] = new Currency("iron", 0, 30);
+	currencies[3] = new Currency("gold", 0, 70);
+	currencies[4] = new Currency("diamond", 0, 200);
+	currencies[5] = new Currency("platinum", 0, 500);
+	currencies[6] = new Currency("orentium", 0, 1000);
 }
 
 function GetCurrencyText(currency) {
@@ -24,16 +24,53 @@ function GetCurrencyText(currency) {
 	return currency_text;
 }
 
-function SpendCurrenciesHourly(cost, hours_worked) {
+function SpendMoneyHourly(cost, hours) {
+	var temp_cost = [];
 	for (var i = 0; i < cost.length; i++) {
-		if (currencies[cost[i][0]].amount < cost[i][1] * hours_worked) {
-			return false;
+		temp_cost[i] = [...cost[i]];
+	}
+	for (var i = 0; i < temp_cost.length; i++) {
+		temp_cost[i][1] *= hours;
+	}
+	SpendMoney(temp_cost);
+}
+
+function SpendMoney(cost) {
+	let new_currencies = CheckIfHaveEnoughMoney(cost);
+	if (new_currencies) {
+		for (var i = 0; i < currencies.length; i++) {
+			currencies[i].amount = new_currencies[i];
+			currencies[i].UpdateUI();
+		}
+		return true;
+	}
+	return false;
+}
+
+function CheckIfHaveEnoughMoney(cost) {
+	var temp_currencies = [];
+	for (var i = 0; i < currencies.length; i++) {
+		temp_currencies[i] = currencies[i].amount;
+	}
+
+	for (var i = 0; i < cost.length; i++) {
+		temp_currencies[cost[i][0]] -= cost[i][1];
+	}
+
+	for (var i = 0; i < temp_currencies.length - 1; i++) {
+		if (temp_currencies[i] < 0) {
+			var amount = Math.ceil(-temp_currencies[i] / currencies[i].exchange_rate);
+			temp_currencies[i + 1] -= amount;
+			temp_currencies[i] += amount * currencies[i].exchange_rate;
 		}
 	}
-	for (var i = 0; i < cost.length; i++) {
-		currencies[cost[i][0]].SubtractCurrency(cost[i][1] * hours_worked);
+
+	for (var i = 0; i < temp_currencies.length; i++) {
+		if (temp_currencies[i] < 0) {
+			return null;
+		}
 	}
-	return true;
+	return temp_currencies;
 }
 
 class Currency {
@@ -46,11 +83,15 @@ class Currency {
 
 	AddCurrency(amount) {
 		this.amount += amount;
-		document.getElementById(this.name + "_amount").innerHTML = this.amount.toPrecision(3);
+		this.UpdateUI();
 	}
 
 	SubtractCurrency(amount) {
 		this.amount -= amount;
+		this.UpdateUI();
+	}
+
+	UpdateUI() {
 		document.getElementById(this.name + "_amount").innerHTML = this.amount.toPrecision(3);
 	}
 }

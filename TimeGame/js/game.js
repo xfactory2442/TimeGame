@@ -8,6 +8,7 @@ function OnLoad() {
 	OnLoadCurrencies();
 	OnLoadActions();
 	OnLoadShop();
+	OnLoadUnlocks();
 	SetDate();
 
 	document.getElementById("default_open").click();
@@ -16,7 +17,7 @@ function OnLoad() {
 let action_number = 99;
 var day_interval;
 function StartDay() {
-	if (action_number < sliders.length + 1) {
+	if (action_number < actions.length + 1) {
 		document.getElementById('can_not_start_day').innerHTML = "Day currently running...";
 		setTimeout(CanNotStartDay, 2000);
 		return;
@@ -63,15 +64,16 @@ function SetDate() {
 }
 
 function RunDay() {
-	if (action_number < sliders.length) {
-		sliders[action_number].RunDay();
-		AddToLog(sliders[action_number].GetActionLogText());
+	if (action_number < actions.length) {
+		actions[action_number].RunDay();
+		AddToLog(actions[action_number].GetActionLogText());
 		action_number++;
 	}
 	else {
-		AddToLog("You spent " + free_hours.toString() + " hours playing video games.");
+		AddToLog("You spent " + free_hours.toString() + " doing nothing of importance at home.");
 		clearInterval(day_interval);
 		action_number++;
+		CheckUnlocks();
 	}
 }
 
